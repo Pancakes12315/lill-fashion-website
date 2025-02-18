@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LILL - Japanese Fashion</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary-color: #333;
+            --secondary-color: #e44d26;
+            --background-color: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .coordination-nav {
+            display: flex;
+            justify-content: center;
+            background-color: var(--white);
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .coordination-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            margin: 0 15px;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        .coordination-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+
+        .coordination-nav a:hover::after {
+            width: 100%;
+        }
+
+        .section-title {
+            padding: 20px 5%;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .user-coordination-section {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 5%;
+            background-color: var(--white);
+            gap: 15px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .user-coord-card {
+            min-width: 250px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+            scroll-snap-align: center;
+        }
+
+        .user-coord-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .user-coord-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .user-coord-card:hover .user-coord-image {
+            transform: scale(1.05);
+        }
+
+        .user-coord-details {
+            padding: 15px;
+            background-color: var(--white);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .user-name {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px 5%;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--secondary-color);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-details {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .product-price {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .product-description {
+            padding: 0 15px 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .product-colors, .product-sizes {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .product-quick-actions {
+            display: none;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            gap: 10px;
+        }
+
+        .product-card:hover .product-quick-actions {
+            display: flex;
+        }
+
+        .quick-action-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quick-action-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .page {
+            display: none;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .header, .coordination-nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-menu, .coordination-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 20px;
+        }
+
+        .search-bar {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            width: 200px;
+            transition: width 0.3s, box-shadow 0.3s;
+        }
+
+        .search-bar:focus {
+            width: 300px;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .search-bar:focus {
+                width: 100%;
+            }
+        }
+
+        .size-guide-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .size-guide-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .size-guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .size-guide-table th,
+        .size-guide-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .size-guide-table th {
+            background-color: #f4f4f4;
+        }
+
+        .close-modal {
+            float: right;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+                /* Complete the Look section */
+        .complete-look {
+            background: var(--white);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .complete-look-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        /* Wishlist button styles */
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .wishlist-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Size recommendation tool */
+        .size-recommender {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .size-recommender input {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Language selector */
+        .language-selector {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .language-btn {
+            background: none;
+            border: 1px solid var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .language-btn:hover {
+            background: var(--background-color);
+        }
+
+        /* Compare products */
+        .compare-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        .compare-items {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 10px;
+        }
+
+        .compare-item {
+            min-width: 150px;
+            position: relative;
+        }
+
+        .remove-compare {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--secondary-color);
+        }
+
+        .suggested-item {
+            text-align: center;
+            padding: 10px;
+            transition: transform 0.3s;
+        }
+
+        .suggested-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .suggested-item p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .suggested-item span {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        .nav-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-icon i {
+            font-size: 1.2em;
+        }
+
+        .nav-menu a {
+            text-align: center;
+        }
+        .style-features {
+            padding: 20px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .style-quiz {
+            margin-top: 15px;
+        }
+
+        .style-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .generate-btn {
+            background: var(--secondary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background: #c73e1d;
+        }
+
+        .community-feed {
+            margin-top: 15px;
+        }
+
+        .hashtag-trending {
+            color: var(--secondary-color);
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+        .social-engagement {
+            padding: 10px 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+
+        .engagement-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary-color);
+            transition: color 0.3s;
+        }
+
+        .engagement-btn:hover {
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+          <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="logo" data-page="home">LILL</div>
+        </div>
+        <nav class="nav-menu">
+          <a data-page="men" data-translate-key="men">
+              <div class="nav-icon">
+                  <i class="fas fa-male"></i>
+                  <span>Men</span>
+              </div>
+          </a>
+          <a data-page="women" data-translate-key="women">
+              <div class="nav-icon">
+                <i class="fas fa-female"></i>
+                  <span>Women</span>
+              </div>
+          </a>
+          <a data-page="new-arrivals" data-translate-key="new-arrivals">
+              <div class="nav-icon">
+                  <i class="fas fa-star"></i>
+                  <span>New Arrivals</span>
+              </div>
+          </a>
+          <a data-page="sale" data-translate-key="sale">
+              <div class="nav-icon">
+                  <i class="fas fa-tags"></i>
+                  <span>Sale</span>
+              </div>
+          </a>
+          <a data-page="cart" data-translate-key="cart">
+              <div class="nav-icon">
+                  <i class="fas fa-shopping-cart"></i>
+                  <span>Cart</span>
+              </div>
+          </a>
+        </nav>
+        <div class="search-container">
+          <input type="text" class="search-bar" placeholder="Search for items..." data-translate-key="search-placeholder">
+          <i class="fas fa-search"></i>
+      </div>
+    </header>
+
+    <div class="language-selector">
+      <button class="language-btn" id="languageToggle">
+          <i class="fas fa-globe"></i>
+          <span>EN</span>
+      </button>
+  </div>
+
+    <nav class="coordination-nav">
+        <a data-page="coordination"><i class="fas fa-palette"></i> Coordination</a>
+        <a data-page="styling"><i class="fas fa-sliders-h"></i> Styling</a>
+        <a data-page="user-looks"><i class="fas fa-users"></i> User Looks</a>
+        <a data-page="trends"><i class="fas fa-fire"></i> Trends</a>
+    </nav>
+
+    <div id="home" class="page active">
+        <section class="user-coordination-section">
+            <div class="user-coord-card">
+                <img src="/api/placeholder/250/300" alt="User Coordination" class="user-coord-image">
+                <div class="user-coord-details">
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">山田 美咲 / Misaki Y.</span>
+                    </div>
+                    <p>都会的モノトーンスタイル / Urban Monochrome Style</p>
+                </div>
+            </div>
+            <div class="user-coord-card">
+                <img src="/api/placeholder/250/300" alt="User Coordination" class="user-coord-image">
+                <div class="user-coord-details">
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">佐藤 健太 / Kenta S.</span>
+                    </div>
+                    <p>ストリートカジュアルルック / Street Casual Look</p>
+                </div>
+            </div>
+            <div class="user-coord-card">
+                <img src="/api/placeholder/250/300" alt="User Coordination" class="user-coord-image">
+                <div class="user-coord-details">
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">鈴木 理恵 / Rie S.</span>
+                    </div>
+                    <p>ミニマルモダンスタイル / Minimal Modern Style</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="new-arrivals" class="page">
+        <div class="section-title">New Arrivals</div>
+        <main class="product-grid">
+            <div class="product-card">
+                <div class="social-engagement">
+                  <button class="engagement-btn likes" data-translate-key="likes">
+                      <i class="far fa-heart"></i> <span>0</span>
+                  </button>
+                  <button class="engagement-btn comments" data-translate-key="comments">
+                      <i class="far fa-comment"></i> <span>0</span>
+                  </button>
+                </div>
+                <img src="/api/placeholder/250/350" alt="Minimalist Wool Coat" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Minimalist Wool Coat</div>
+                    <div class="product-price">$192.00</div>
+                </div>
+                <div class="product-description">
+                    <p>Sleek wool blend coat with clean lines. Perfect for layering in urban settings. Features hidden button closure and subtle side pockets.</p>
+                    <div class="product-colors">Colors: Black, Camel, Navy</div>
+                    <div class="product-sizes">Sizes: XS, S, M, L, XL</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+              
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Oversized Tech Jacket" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Oversized Tech Jacket</div>
+                    <div class="product-price">$222.00</div>
+                </div>
+                <div class="product-description">
+                    <p>Cutting-edge technical jacket with water-resistant fabric. Adjustable hood and multiple utility pockets. Ideal for urban explorers.</p>
+                    <div class="product-colors">Colors: Olive Green, Stone, Black</div>
+                    <div class="product-sizes">Sizes: S, M, L, XL</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+              
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="men" class="page">
+        <div class="section-title">Men's Collection</div>
+        <section class="product-grid">
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Classic Tailored Blazer" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Classic Tailored Blazer</div>
+                    <div class="product-price">$290.00</div>
+                </div>
+                <div class="product-description">
+                    <p>Precision-tailored blazer in premium wool blend. Slim fit with subtle shoulder structure. Perfect for sophisticated occasions.</p>
+                    <div class="product-colors">Colors: Navy, Charcoal, Burgundy</div>
+                    <div class="product-colors">Colors: Navy, Charcoal, Burgundy</div>
+                    <div class="product-sizes">Sizes: 38, 40, 42, 44, 46</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+              
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Leather Biker Jacket" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Leather Biker Jacket</div>
+                    <div class="product-price">$383.00</div>
+                </div>
+                <div class="product-description">
+                    <p>Premium lambskin leather jacket with asymmetric zipper. Vintage-inspired design with modern slim fit. Rebellious yet refined.</p>
+                    <div class="product-colors">Colors: Black, Dark Brown</div>
+                    <div class="product-sizes">Sizes: S, M, L, XL</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="women" class="page">
+        <div class="section-title">Women's Collection</div>
+        <section class="product-grid">
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Silk Wrap Dress" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Silk Wrap Dress</div>
+                    <div class="product-price">$250.00</div>
+                </div>
+                <div class="product-description">
+                    <p>Elegant silk wrap dress with delicate draping. Versatile design transitions from day to evening. Adjustable waist tie for perfect fit.</p>
+                    <div class="product-colors">Colors: Emerald Green, Dusty Rose, Black</div>
+                    <div class="product-sizes">Sizes: XS, S, M, L</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+              
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Oversized Wool Coat" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Oversized Wool Coat</div>
+                    <div class="product-price">$353.00</div>
+                </div>
+                <div class="product-description">
+                    <p>Luxurious oversized wool coat with statement collar. Relaxed silhouette provides comfort and style. Perfect for layering.</p>
+                    <div class="product-colors">Colors: Camel, Gray, Ivory</div>
+                    <div class="product-sizes">Sizes: XS, S, M, L</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+              
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="sale" class="page">
+        <div class="section-title">Sale Items</div>
+        <section class="product-grid">
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Summer Sale Linen Shirt" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Summer Sale Linen Shirt</div>
+                    <div class="product-price"><s>$121.00</s> $80</div>
+                </div>
+                <div class="product-description">
+                    <p>Lightweight linen shirt perfect for summer. Breathable fabric with relaxed fit. Classic design with modern cut.</p>
+                    <div class="product-colors">Colors: White, Sand, Light Blue</div>
+                    <div class="product-sizes">Sizes: S, M, L, XL</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+              
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Clearance Denim Jacket" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Clearance Denim Jacket</div>
+                    <div class="product-price"><s>$256.00</s>$160.00</div>
+                </div>
+                <div class="product-description">
+                    <p>Classic denim jacket with modern slim fit. Versatile piece for layering. Soft, comfortable fabric with vintage wash.</p>
+                    <div class="product-colors">Colors: Indigo, Light Wash, Dark Wash</div>
+                    <div class="product-sizes">Sizes: S, M, L, XL</div>
+                </div>
+                <div class="size-recommender">
+                  <h4>Find Your Perfect Size</h4>
+                  <input type="number" placeholder="Height (cm)" />
+                  <input type="number" placeholder="Weight (kg)" />
+                  <button class="quick-action-btn" onclick="recommendSize(this)">
+                      <i class="fas fa-ruler"></i> Get Size
+                  </button>
+              </div>
+              
+              <div class="complete-look">
+                  <h4>Complete the Look</h4>
+                  <div class="complete-look-grid">
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 1" />
+                      <img src="/api/placeholder/150/200" alt="Suggested Item 2" />
+                  </div>
+              </div>
+                <div class="product-quick-actions">
+                    <button class="quick-action-btn"><i class="fas fa-shopping-cart"></i></button>
+                    <button class="quick-action-btn"><i class="fas fa-heart"></i></button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    
+
+    <div id="cart" class="page">
+        <div class="section-title">Shopping Cart</div>
+        <section class="product-grid">
+            <p style="text-align: center; width: 100%;">Your cart is currently empty.</p>
+        </section>
+    </div>
+
+    <div id="coordination" class="page">
+        <div class="section-title">Style Coordination</div>
+        <section class="product-grid">
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Urban Monochrome Coordination" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Urban Monochrome Look</div>
+                    <div class="product-description">
+                        <p>Perfect blend of black and white pieces for a sleek, minimalist aesthetic. Layer a wool coat over a crisp white shirt and slim black trousers.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Street Style Layering" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Street Style Layering</div>
+                    <div class="product-description">
+                        <p>Mix textures and proportions with an oversized tech jacket, slim-fit denim, and chunky sneakers. Create depth with contrasting layers.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Minimalist Evening Ensemble" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Minimalist Evening Ensemble</div>
+                    <div class="product-description">
+                        <p>Elevate your evening look with a silk wrap dress, structured blazer, and minimal accessories. Focus on clean lines and elegant silhouettes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="size-guide-modal" id="sizeGuideModal">
+      <div class="size-guide-content">
+          <span class="close-modal">&times;</span>
+          <h2>Size Guide</h2>
+          <table class="size-guide-table">
+              <thead>
+                  <tr>
+                      <th>Size</th>
+                      <th>Chest (cm)</th>
+                      <th>Waist (cm)</th>
+                      <th>Hip (cm)</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>XS</td>
+                      <td>82-87</td>
+                      <td>63-68</td>
+                      <td>87-92</td>
+                  </tr>
+                  <tr>
+                      <td>S</td>
+                      <td>87-92</td>
+                      <td>68-73</td>
+                      <td>92-97</td>
+                  </tr>
+                  <tr>
+                      <td>M</td>
+                      <td>92-97</td>
+                      <td>73-78</td>
+                      <td>97-102</td>
+                  </tr>
+                  <tr>
+                      <td>L</td>
+                      <td>97-102</td>
+                      <td>78-83</td>
+                      <td>102-107</td>
+                  </tr>
+                  <tr>
+                      <td>XL</td>
+                      <td>102-107</td>
+                      <td>83-88</td>
+                      <td>107-112</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+    <div id="styling" class="page">
+        <div class="section-title">Styling Guides</div>
+        <section class="product-grid">
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Layering Techniques" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Master Layering</div>
+                    <div class="product-description">
+                        <p>Learn the art of layering: Start with thin, fitted pieces and add progressively looser items. Mix textures and play with proportions for depth.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Capsule Wardrobe" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Create a Capsule Wardrobe</div>
+                    <div class="product-description">
+                        <p>Build a versatile wardrobe with 15-20 high-quality, mix-and-match pieces. Focus on neutral colors and classic silhouettes.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Accessorizing Tips" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Accessorizing Masterclass</div>
+                    <div class="product-description">
+                        <p>Transform outfits with strategic accessories. Choose 1-2 statement pieces that complement your look without overwhelming it.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="user-looks" class="page">
+        <div class="section-title">User Looks</div>
+        <section class="user-coordination-section">
+            <div class="user-coord-card">
+                <img src="/api/placeholder/250/300" alt="Street Style Look" class="user-coord-image">
+                <div class="user-coord-details">
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">Kenji T.</span>
+                    </div>
+                    <p>Tokyo Street meets High Fashion / テックウェアスタイル</p>
+                </div>
+            </div>
+            <div class="user-coord-card">
+                <img src="/api/placeholder/250/300" alt="Minimalist Urban Look" class="user-coord-image">
+                <div class="user-coord-details">
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">Yuki M.</span>
+                    </div>
+                    <p>Minimalist Corporate Chic / モノクロオフィススタイル</p>
+                </div>
+            </div>
+            <div class="user-coord-card">
+                <img src="/api/placeholder/250/300" alt="Vintage Inspired Look" class="user-coord-image">
+                <div class="user-coord-details">
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="User Avatar" class="user-avatar">
+                        <span class="user-name">Rin S.</span>
+                    </div>
+                    <p>Vintage Meets Modern / ヴィンテージリミックス</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="trends" class="page">
+        <div class="section-title">Fashion Trends</div>
+        <section class="product-grid">
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Sustainable Fashion" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Eco-Conscious Fashion</div>
+                    <div class="product-description">
+                        <p>2025 trend: Sustainable materials, ethical production, and timeless designs. Look for recycled fabrics and transparent supply chains.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Tech-Inspired Wear" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">Tech-Functional Wear</div>
+                    <div class="product-description">
+                        <p>Performance fabrics meet style. Water-resistant, breathable materials with sleek urban aesthetics dominate contemporary fashion.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+              <div class="social-engagement">
+                <button class="engagement-btn likes" data-translate-key="likes">
+                    <i class="far fa-heart"></i> <span>0</span>
+                </button>
+                <button class="engagement-btn comments" data-translate-key="comments">
+                    <i class="far fa-comment"></i> <span>0</span>
+                </button>
+              </div>
+                <img src="/api/placeholder/250/350" alt="Minimalist Aesthetic" class="product-image">
+                <button class="wishlist-btn">
+                  <i class="far fa-heart"></i>
+                </button>
+                <div class="product-details">
+                    <div class="product-name">New Minimalism</div>
+                    <div class="product-description">
+                        <p>Less is more. Clean lines, neutral palettes, and high-quality materials define the modern minimalist approach to fashion.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+              <!-- Add this after the product-grid section -->
+      <div class="style-features">
+        <!-- Outfit Generator -->
+        <div class="feature-card">
+            <h3 data-translate-key="outfit-generator">AI Outfit Generator</h3>
+            <div class="style-quiz">
+                <select class="style-input" data-translate-key="style-preference">
+                    <option value="casual">カジュアル / Casual</option>
+                    <option value="formal">フォーマル / Formal</option>
+                    <option value="street">ストリート / Street</option>
+                </select>
+                <button class="generate-btn" data-translate-key="generate-outfit">Generate Outfit</button>
+            </div>
+        </div>
+        
+        <!-- Style Community -->
+        <div class="feature-card">
+            <h3 data-translate-key="style-community">Style Community</h3>
+            <div class="community-feed">
+                <div class="hashtag-trending" data-translate-key="trending-tags">
+                    #TokyoStyle #StreetFashion #MinimalChic
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="compare-container" id="compareContainer">
+      <h3>Compare Items</h3>
+      <div class="compare-items" id="compareItems">
+          <!-- Compare items will be added here dynamically -->
+      </div>
+    </div>
+
+    <footer class="footer">
+        <div>&copy; 2025 LILL Fashion. All Rights Reserved.</div>
+        <div class="footer-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('[data-page]');
+
+            function showPage(pageId) {
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                window.scrollTo(0, 0);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const pageId = e.target.getAttribute('data-page') || e.target.closest('[data-page]').getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+        });
+
+        // Size Guide Modal
+        const sizeGuideModal = document.getElementById('sizeGuideModal');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Add size guide button to each product
+        document.querySelectorAll('.product-sizes').forEach(sizeElement => {
+        const sizeGuideBtn = document.createElement('button');
+        sizeGuideBtn.textContent = 'Size Guide';
+        sizeGuideBtn.style.marginLeft = '10px';
+        sizeGuideBtn.style.color = 'var(--secondary-color)';
+        sizeGuideBtn.style.cursor = 'pointer';
+        sizeGuideBtn.style.background = 'none';
+        sizeGuideBtn.style.border = 'none';
+        sizeGuideBtn.onclick = () => sizeGuideModal.style.display = 'flex';
+        sizeElement.appendChild(sizeGuideBtn);
+        });
+
+        // Close modal when clicking the close button or outside the modal
+        closeModal.onclick = () => sizeGuideModal.style.display = 'none';
+        window.onclick = (event) => {
+        if (event.target === sizeGuideModal) {
+            sizeGuideModal.style.display = 'none';
+        }
+        };
+
+                // Language Toggle System
+        const languageToggle = document.getElementById('languageToggle');
+        const translations = {
+          en: {
+              // Navigation
+              'men': 'Men',
+              'women': 'Women',
+              'new-arrivals': 'New Arrivals',
+              'sale': 'Sale',
+              'cart': 'Cart',
+              'coordination': 'Coordination',
+              'styling': 'Styling',
+              'user-looks': 'User Looks',
+              'trends': 'Trends',
+              
+              // Search
+              'search-placeholder': 'Search for items...',
+              
+              // Product Names
+              'minimalist-wool-name': 'Minimalist Wool Coat',
+              'tech-jacket-name': 'Oversized Tech Jacket',
+              'silk-dress-name': 'Silk Wrap Dress',
+              'wool-coat-name': 'Oversized Wool Coat',
+              'linen-shirt-name': 'Summer Sale Linen Shirt',
+              'denim-jacket-name': 'Clearance Denim Jacket',
+              
+              // Product Descriptions
+              'minimalist-wool-desc': 'Sleek wool blend coat with clean lines. Perfect for layering in urban settings. Features hidden button closure and subtle side pockets.',
+              'tech-jacket-desc': 'Cutting-edge technical jacket with water-resistant fabric. Adjustable hood and multiple utility pockets. Ideal for urban explorers.',
+              'silk-dress-desc': 'Elegant silk wrap dress with delicate draping. Versatile design transitions from day to evening. Adjustable waist tie for perfect fit.',
+              'wool-coat-desc': 'Luxurious oversized wool coat with statement collar. Relaxed silhouette provides comfort and style. Perfect for layering.',
+              'linen-shirt-desc': 'Lightweight linen shirt perfect for summer. Breathable fabric with relaxed fit. Classic design with modern cut.',
+              'denim-jacket-desc': 'Classic denim jacket with modern slim fit. Versatile piece for layering. Soft, comfortable fabric with vintage wash.',
+              
+              // Colors and Sizes
+              'minimalist-wool-colors': 'Colors: Black, Camel, Navy',
+              'tech-jacket-colors': 'Colors: Olive Green, Stone, Black',
+              'silk-dress-colors': 'Colors: Emerald Green, Dusty Rose, Black',
+              'wool-coat-colors': 'Colors: Camel, Gray, Ivory',
+              'linen-shirt-colors': 'Colors: White, Sand, Light Blue',
+              'denim-jacket-colors': 'Colors: Indigo, Light Wash, Dark Wash',
+              
+              'standard-sizes': 'Sizes: XS, S, M, L, XL',
+              
+              // UI Elements
+              'find-size': 'Find Your Perfect Size',
+              'height-placeholder': 'Height (cm)',
+              'weight-placeholder': 'Weight (kg)',
+              'get-size': 'Get Size',
+              'complete-look': 'Complete the Look',
+              'empty-cart': 'Your cart is currently empty.'
+
+          },
+          jp: {
+              // Navigation
+              'men': 'メンズ',
+              'women': 'レディース',
+              'new-arrivals': '新着商品',
+              'sale': 'セール',
+              'cart': 'カート',
+              'coordination': 'コーディネート',
+              'styling': 'スタイリング',
+              'user-looks': 'ユーザールック',
+              'trends': 'トレンド',
+              
+              // Search
+              'search-placeholder': '商品を検索...',
+              
+              // Product Names
+              'minimalist-wool-name': 'ミニマリストウールコート',
+              'tech-jacket-name': 'オーバーサイズテックジャケット',
+              'silk-dress-name': 'シルクラップドレス',
+              'wool-coat-name': 'オーバーサイズウールコート',
+              'linen-shirt-name': 'サマーセールリネンシャツ',
+              'denim-jacket-name': 'クリアランスデニムジャケット',
+              
+              // Product Descriptions
+              'minimalist-wool-desc': 'クリーンなラインのスリムなウールブレンドコート。都会的な重ね着に最適。隠しボタン開閉とサイドポケット付き。',
+              'tech-jacket-desc': '最先端の防水素材を使用したテクニカルジャケット。調節可能なフードと多機能ポケット付き。アーバンエクスプローラーに最適。',
+              'silk-dress-desc': '繊細なドレープが特徴のエレガントなシルクラップドレス。昼夜問わず着用可能な汎用性の高いデザイン。調節可能なウエストタイ付き。',
+              'wool-coat-desc': '存在感のある襟が特徴の贅沢なオーバーサイズウールコート。リラックスしたシルエットで快適なスタイリングを実現。重ね着に最適。',
+              'linen-shirt-desc': '夏に最適な軽量リネンシャツ。通気性の良い素材でリラックスフィット。クラシックなデザインにモダンなカット。',
+              'denim-jacket-desc': 'モダンなスリムフィットのクラシックデニムジャケット。レイヤリングに最適な万能アイテム。柔らかく快適なヴィンテージウォッシュ加工。',
+              
+              // Colors and Sizes
+              'minimalist-wool-colors': 'カラー: ブラック、キャメル、ネイビー',
+              'tech-jacket-colors': 'カラー: オリーブグリーン、ストーン、ブラック',
+              'silk-dress-colors': 'カラー: エメラルドグリーン、ダスティローズ、ブラック',
+              'wool-coat-colors': 'カラー: キャメル、グレー、アイボリー',
+              'linen-shirt-colors': 'カラー: ホワイト、サンド、ライトブルー',
+              'denim-jacket-colors': 'カラー: インディゴ、ライトウォッシュ、ダークウォッシュ',
+              
+              'standard-sizes': 'サイズ: XS, S, M, L, XL',
+              
+              // UI Elements
+              'find-size': 'あなたにぴったりのサイズを見つける',
+              'height-placeholder': '身長 (cm)',
+              'weight-placeholder': '体重 (kg)',
+              'get-size': 'サイズを確認',
+              'complete-look': 'コーディネートを完成させる',
+              'empty-cart': 'カートは空です。'
+          }
+      };
+
+        let currentLang = 'en';
+
+        languageToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'jp' : 'en';
+            languageToggle.querySelector('span').textContent = currentLang.toUpperCase();
+            translatePage();
+        });
+
+        function translatePage() {
+    // Translate elements with data-translate-key
+    document.querySelectorAll('[data-translate-key]').forEach(element => {
+        const key = element.getAttribute('data-translate-key');
+        if (translations[currentLang][key]) {
+            const span = element.querySelector('span');
+            if (span) {
+                span.textContent = translations[currentLang][key];
+            } else if (element.tagName === 'INPUT') {
+                element.placeholder = translations[currentLang][key];
+            } else {
+                element.textContent = translations[currentLang][key];
+            }
+        }
+    });
+
+
+            
+            // Translate section titles
+            document.querySelectorAll('.section-title').forEach(element => {
+                const key = element.getAttribute('data-translate-key');
+                if (translations[currentLang][key]) {
+                    element.textContent = translations[currentLang][key];
+                }
+            });
+            
+            // Translate product details
+            document.querySelectorAll('.product-description p, .product-name, .complete-look h4').forEach(element => {
+                const key = element.getAttribute('data-translate-key');
+                if (key && translations[currentLang][key]) {
+                    element.textContent = translations[currentLang][key];
+                }
+            });
+        }
+
+        // Initialize page with translations
+        document.addEventListener('DOMContentLoaded', () => {
+            translatePage();
+        });
+    </script>
+</body>
+</html>
